@@ -50,7 +50,7 @@ reasoning, to this markdown file.
 
 
 #### **Time Complexity**:  
-  The algorithm explores all subsets of cities, which is $O(2^n)$. For each subset, we try all cities as the starting city, which involves $O(n)$ work to explore all possible next cities. For each subset, the algorithm explores all cities to find the next city to visit, so there is an $O(n)$ operation inside the recursive calls for each subset.Therefor the overall time complexity becomes $O(n^2 * 2^n)$.
+  The algorithm explores all subsets of cities, which is $O(2^n)$. For each subset, we try all cities as the starting city, which involves $O(n)$ work to explore all possible next cities. For each subset, the algorithm explores all cities to find the next city to visit, so there is an $O(n)$ operation inside the recursive calls for each subset. Therefore the overall time complexity becomes $O(n^2 * 2^n)$.
 
 #### **Memory Complexity**:  
   The memory complexity is $O(n * 2^n)$, which accounts for the memory required to store results in the cache for each combination of cities and the starting city. The cache object stores results for every possible subset of cities, requiring $O(n * 2^n)$ space. Additionally, the recursive call stack consumes $O(n)$ space, as the maximum depth of recursion is determined by the number of cities, i.e., $n$. Thus, the overall memory complexity is $O(n * 2^n)$, considering both the cache and the recursion stack, which makes up the total memory usage.
@@ -59,7 +59,7 @@ reasoning, to this markdown file.
 
 https://github.com/COSC3020/tsp-held-karp-ClaytonBrown4741/blob/main/code.js
 
-I looked at the above repository to get an idea of how to implment memorization
+I looked at the above repository to understand how to implement memorization. I wasn't sure at first what it meant when it said memoization. I looked at the repository and saw it is a simple temp value stored until the next iteration. I used the var cache = {} and understood how it is used and reset at the start of each iteration. However, the repo above did the reset at the start of the iteration, whereas I did it where if there is a cached value it returns it and moves on to the next one
 
 https://www.youtube.com/watch?v=-JjA4BLQyqE
 
@@ -67,7 +67,7 @@ https://www.youtube.com/watch?v=jUYAJ72m8P0
 
 https://www.youtube.com/watch?v=6jqlBDYNrL0
 
-The above three videos gave me a good understanding of using the held karp algorithm for dynamic programming.
+The above three videos gave me a good understanding of using the Held Karp algorithm for dynamic programming.
 
 https://compgeek.co.in/held-karp-algorithm-for-tsp/
 
