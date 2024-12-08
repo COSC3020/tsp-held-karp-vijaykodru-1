@@ -46,3 +46,31 @@ Test your new function; I've provided some basic testing code in `code.test.js`.
 What is the worst-case asymptotic time complexity of your implementation? What
 is the worst-case asymptotic memory complexity? Add your answer, including your
 reasoning, to this markdown file.
+
+
+
+#### **Time Complexity**:  
+  The algorithm explores all subsets of cities, which is $O(2^n)$. For each subset, we try all cities as the starting city, which involves $O(n)$ work to explore all possible next cities. For each subset, the algorithm explores all cities to find the next city to visit, so there is an $O(n)$ operation inside the recursive calls for each subset.Therefor the overall time complexity becomes $O(n^2 * 2^n)$.
+
+#### **Memory Complexity**:  
+  The memory complexity is $O(n * 2^n)$, which accounts for the memory required to store results in the cache for each combination of cities and the starting city. The cache object stores results for every possible subset of cities, requiring $O(n * 2^n)$ space. Additionally, the recursive call stack consumes $O(n)$ space, as the maximum depth of recursion is determined by the number of cities, i.e., $n$. Thus, the overall memory complexity is $O(n * 2^n)$, considering both the cache and the recursion stack, which makes up the total memory usage.
+
+
+
+https://github.com/COSC3020/tsp-held-karp-ClaytonBrown4741/blob/main/code.js
+
+I looked at the above repository to get an idea of how to implment memorization
+
+https://www.youtube.com/watch?v=-JjA4BLQyqE
+
+https://www.youtube.com/watch?v=jUYAJ72m8P0
+
+https://www.youtube.com/watch?v=6jqlBDYNrL0
+
+The above three videos gave me a good understanding of using the held karp algorithm for dynamic programming.
+
+https://compgeek.co.in/held-karp-algorithm-for-tsp/
+
+The above website gave me the idea for implementing the code alongside the given pseudocode
+
+I certify that I have listed all sources used to complete this exercise, including the use of any Large Language Models. All of the work is my own, except where stated otherwise. I am aware that plagiarism carries severe penalties and that if plagiarism is suspected, charges may be filed against me without prior notice
