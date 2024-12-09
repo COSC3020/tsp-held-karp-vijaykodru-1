@@ -1,50 +1,40 @@
 function tsp_hk(distance_matrix) {
-    // Base case where there is only one or no entries in the distance_matrix
-    if (distance_matrix.length <= 1) {
-        return 0;
-    }
+    const n = distance_matrix.length;
+    const cache = new Map();
+    
 
-    var cache = {}; // memoization
-
-    function heldKarp(cities, start) {
-        var key = JSON.stringify(cities) + start;
-
-        // Return cached result if available
-        if (cache[key] !== undefined) {
-            return cache[key];
+    function heldKarp(current, visited) {
+        //If all cities have been visited, return the distance to the start city (city 0)
+        if (visited === (1 << n) - 1) {
+            return 0;
         }
-
-        // if there are only two cities
-        if (cities.length === 2) {
-            const otherCity = cities.find(city => city !== start);
-            return distance_matrix[start][otherCity];
+        
+        var key = JSON.stringify([visited, current]);
+        
+        // Return the cached result if it exists
+        if (cache.has(key)) {
+            return cache.get(key);
         }
-        //Assuming maximum distance between the cities
-        let minDistance = Infinity;
-        for (const nextCity of cities) {
-            if (nextCity === start) continue;
-
-            // remove the starting city
-            const reducedCities = cities.filter(city => city !== start);
+        
+        let minDist = Infinity;
+        
+        // Try all cities and recursively find the shortest path from current city
+        for (let nextCity = 0; nextCity < n; nextCity++) {
+            // Skip cities that have already been visited
+            if ((visited & (1 << nextCity)) !== 0) continue;
+        
+            // Recursively calculate the distance for the new state
+            const dist = distance_matrix[current][nextCity] + heldKarp(nextCity, visited | (1 << nextCity));
             
-            // calculate the distance
-            const distance = heldKarp(reducedCities, nextCity) + distance_matrix[start][nextCity];
-            minDistance = Math.min(minDistance, distance);
+            // Update the minimum distance found
+            minDist = Math.min(minDist, dist);
         }
-        // Store the result
-        cache[key] = minDistance;
-        return minDistance;
+        
+        // Memoize the result for this state
+        cache.set(key, minDist);
+        return minDist;
     }
-
-    // Initialize the remaining cities
-    const remaining = Array.from({ length: distance_matrix.length }, (_, i) => i);
-
-    let shortestTour = Infinity;
-
-    // Compute the shortest tour by trying each city as the starting point
-    for (const startCity of remaining) {
-        shortestTour = Math.min(shortestTour, heldKarp(remaining, startCity));
-    }
-
-    return shortestTour;
+    
+    return heldKarp(0, 1 << 0);
 }
+    
