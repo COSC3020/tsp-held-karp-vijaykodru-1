@@ -73,4 +73,12 @@ https://compgeek.co.in/held-karp-algorithm-for-tsp/
 
 The above website gave me the idea for implementing the code alongside the given pseudocode
 
+
+https://www.geeksforgeeks.org/travelling-salesman-problem-using-dynamic-programming/
+
+The above website gave me a good idea for different approaches to the problem. I used the memoization using Map() instead of an array.
+
+ChatGPT helped me take out any unnecessary code like the base cases I originally had and I was able to refine the code to be simpler and small.
+
+
 I certify that I have listed all sources used to complete this exercise, including the use of any Large Language Models. All of the work is my own, except where stated otherwise. I am aware that plagiarism carries severe penalties and that if plagiarism is suspected, charges may be filed against me without prior notice
