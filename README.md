@@ -49,17 +49,17 @@ reasoning, to this markdown file.
 
 
 
-#### **Time Complexity**:  
-  The algorithm explores all subsets of cities, which is $O(2^n)$. For each subset, we try all cities as the starting city, which involves $O(n)$ work to explore all possible next cities. For each subset, the algorithm explores all cities to find the next city to visit, so there is an $O(n)$ operation inside the recursive calls for each subset. Therefore the overall time complexity becomes $O(n^2 * 2^n)$.
 
-#### **Memory Complexity**:  
-  The memory complexity is $O(n * 2^n)$, which accounts for the memory required to store results in the cache for each combination of cities and the starting city. The cache object stores results for every possible subset of cities, requiring $O(n * 2^n)$ space. Additionally, the recursive call stack consumes $O(n)$ space, as the maximum depth of recursion is determined by the number of cities, i.e., $n$. Thus, the overall memory complexity is $O(n * 2^n)$, considering both the cache and the recursion stack, which makes up the total memory usage.
+#### **Time Complexity**:
+The algorithm explores all subsets of cities, which is $O(2^n)$. For each subset, we try all cities as the "last city," which involves $O(n)$ operations. Additionally, for each subset, we try all cities as the "next city" to visit, which also takes $O(n)$ work. Therefore, the overall time complexity is $O(n^2 * 2^n)$.
 
+#### **Memory Complexity**:
+The memory complexity is $O(n * 2^n)$, which accounts for the memory required to store the dp table. This table stores the minimum distance for every possible subset of cities which is $O(2^n)$ and each "last city" in the subset which is $n$. The recursion stack is not needed, so the space complexity is reduced compared to the memoized version.
 
 
 https://github.com/COSC3020/tsp-held-karp-ClaytonBrown4741/blob/main/code.js
 
-I looked at the above repository to understand how to implement memorization. I wasn't sure at first what it meant when it said memoization. I looked at the repository and saw it is a simple temp value stored until the next iteration. I used the var cache = {} and understood how it is used and reset at the start of each iteration. However, the repo above did the reset at the start of the iteration, whereas I did it where if there is a cached value it returns it and moves on to the next one
+I looked at the above repository to get an idea of how to implment memorization
 
 https://www.youtube.com/watch?v=-JjA4BLQyqE
 
@@ -67,18 +67,16 @@ https://www.youtube.com/watch?v=jUYAJ72m8P0
 
 https://www.youtube.com/watch?v=6jqlBDYNrL0
 
-The above three videos gave me a good understanding of using the Held Karp algorithm for dynamic programming.
+The above three videos gave me a good understanding of using the held karp algorithm for dynamic programming.
 
 https://compgeek.co.in/held-karp-algorithm-for-tsp/
 
 The above website gave me the idea for implementing the code alongside the given pseudocode
 
-
 https://www.geeksforgeeks.org/travelling-salesman-problem-using-dynamic-programming/
 
-The above website gave me a good idea for different approaches to the problem. I used the memoization using Map() instead of an array.
+I used the above website to understand how I can do memoization differently. I used a bitmask. The state is represented by dp[mask][last], where mask is a bitmask representing the set of cities visited so far, and last is the index of the last city visited.
 
-ChatGPT helped me take out any unnecessary code like the base cases I originally had and I was able to refine the code to be simpler and small.
-
+chatgpt helped me take out any unecessary code like the base cases I originally had and I was able to refine the code to simpler and small.
 
 I certify that I have listed all sources used to complete this exercise, including the use of any Large Language Models. All of the work is my own, except where stated otherwise. I am aware that plagiarism carries severe penalties and that if plagiarism is suspected, charges may be filed against me without prior notice
