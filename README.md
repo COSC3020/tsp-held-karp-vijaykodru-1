@@ -46,3 +46,50 @@ Test your new function; I've provided some basic testing code in `code.test.js`.
 What is the worst-case asymptotic time complexity of your implementation? What
 is the worst-case asymptotic memory complexity? Add your answer, including your
 reasoning, to this markdown file.
+
+
+
+
+#### **Time Complexity**:
+The algorithm explores all subsets of cities, which is $O(2^n)$. For each subset, we try all cities as the "last city," which involves $O(n)$ operations. Additionally, for each subset, we try all cities as the "next city" to visit, which also takes $O(n)$ work. Therefore, the overall time complexity is $O(n^2 * 2^n)$.
+
+#### **Memory Complexity**:
+The memory complexity is $O(n * 2^n)$, which accounts for the memory required to store the memo. This memo stores the minimum distance for every possible subset of cities which is $O(2^n)$ and each "last city" in the subset which is n. So the total memory complexity for the code implemented is $O(n * 2^n)$
+
+
+I updated my code back to using memoization in a different way than using bit manipulation. 
+
+Key differences from the repository cited:
+
+instead of having the cache reset, I return the cached value if it exists and continue to iterate. 
+
+I used Array.from to initialize every city with a index
+
+My key values sorts the remaining cities on every iteration
+
+
+
+https://github.com/COSC3020/tsp-held-karp-ClaytonBrown4741/blob/main/code.js
+
+I looked at the above repository to get an idea of how to implment memorization
+
+https://www.youtube.com/watch?v=-JjA4BLQyqE
+
+https://www.youtube.com/watch?v=jUYAJ72m8P0
+
+https://www.youtube.com/watch?v=6jqlBDYNrL0
+
+The above three videos gave me a good understanding of using the held karp algorithm for dynamic programming.
+
+https://compgeek.co.in/held-karp-algorithm-for-tsp/
+
+The above website gave me the idea for implementing the code alongside the given pseudocode
+
+https://www.geeksforgeeks.org/travelling-salesman-problem-using-dynamic-programming/
+
+I used the above website to understand how I can do memoization differently. I used a bitmask. The state is represented by dp[mask][last], where mask is a bitmask representing the set of cities visited so far, and last is the index of the last city visited.
+
+chatgpt helped me take out any unecessary code like the base cases I originally had and I was able to refine the code to simpler and small.
+
+I certify that I have listed all sources used to complete this exercise, including the use of any Large Language Models. All of the work is my own, except where stated otherwise. I am aware that plagiarism carries severe penalties and that if plagiarism is suspected, charges may be filed against me without prior notice
+
