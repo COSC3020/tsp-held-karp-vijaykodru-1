@@ -54,7 +54,19 @@ reasoning, to this markdown file.
 The algorithm explores all subsets of cities, which is $O(2^n)$. For each subset, we try all cities as the "last city," which involves $O(n)$ operations. Additionally, for each subset, we try all cities as the "next city" to visit, which also takes $O(n)$ work. Therefore, the overall time complexity is $O(n^2 * 2^n)$.
 
 #### **Memory Complexity**:
-The memory complexity is $O(n * 2^n)$, which accounts for the memory required to store the dp table. This table stores the minimum distance for every possible subset of cities which is $O(2^n)$ and each "last city" in the subset which is $n$. The recursion stack is not needed, so the space complexity is reduced compared to the memoized version.
+The memory complexity is $O(n * 2^n)$, which accounts for the memory required to store the memo. This memo stores the minimum distance for every possible subset of cities which is $O(2^n)$ and each "last city" in the subset which is n. So the total memory complexity for the code implemented is $O(n * 2^n)$
+
+
+I updated my code back to using memoization in a different way than using bit manipulation. 
+
+Key differences from the repository cited:
+
+instead of having the cache reset, I return the cached value if it exists and continue to iterate. 
+
+I used Array.from to initialize every city with a index
+
+My key values sorts the remaining cities on every iteration
+
 
 
 https://github.com/COSC3020/tsp-held-karp-ClaytonBrown4741/blob/main/code.js
@@ -80,3 +92,4 @@ I used the above website to understand how I can do memoization differently. I u
 chatgpt helped me take out any unecessary code like the base cases I originally had and I was able to refine the code to simpler and small.
 
 I certify that I have listed all sources used to complete this exercise, including the use of any Large Language Models. All of the work is my own, except where stated otherwise. I am aware that plagiarism carries severe penalties and that if plagiarism is suspected, charges may be filed against me without prior notice
+
