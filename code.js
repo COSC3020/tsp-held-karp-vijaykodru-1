@@ -1,43 +1,61 @@
 function tsp_hk(distance_matrix) {
- 
-    // If there is only one or no city return 0
-    if (distance_matrix.length <= 1) {
+    const n = distance_matrix.length
+
+    // Return 0 if there are no cities or just one.
+    if (n <= 1) {
         return 0;
     }
 
-    // dp will store the minimum distance to visit the cities in mask
-    //sets the ditance to be infinity
-    const dp = Array(1 << distance_matrix.length).fill().map(() => Array(distance_matrix.length).fill(Infinity));
+    const memo = {}; //temporarily store results of subproblems.
+    const numCities = n; // Number of cities.
+    const allCities = Array.from({ length: numCities }, (_, i) => i); // Indices of all cities.
 
-    //starting from each city and visiting only that city
-    for (let i = 0; i < distance_matrix.length; i++) {
-        dp[1 << i][i] = 0;
+    let minimumTourCost = Infinity; // Initialize the minimum tour cost.
+
+    // Attempt starting the tour from each city.
+    for (let startCity = 0; startCity < numCities; startCity++) {
+        const tourCost = HK(distance_matrix, startCity, allCities, memo);
+        minimumTourCost = Math.min(minimumTourCost, tourCost);
     }
 
-    // Iterate over all possible subsets of cities (represented by 'mask')
-    for (let mask = 1; mask < (1 << distance_matrix.length); mask++) {
-        for (let last = 0; last < distance_matrix.length; last++) {
-            // Continue if last city is not in the current mask
-            if ((mask & (1 << last)) === 0) {
-                continue;
-            }
+    return minimumTourCost === Infinity ? 0 : minimumTourCost;
+}
 
-            // Try to find the minimum distance by visiting a new city 'next'
-            for (let next = 0; next < distance_matrix.length; next++) {
-                if (next === last || (mask & (1 << next)) !== 0) {
-                    continue;
-                }
+function HK(distance_matrix, currentCity, remainingCities, memo) {
+    // Generate a unique key for memoization.
+    const memoKey = `${currentCity}-${JSON.stringify(remainingCities.sort((a, b) => a - b))}`;
 
-                const newMask = mask | (1 << next);
-                dp[newMask][next] = Math.min(dp[newMask][next], dp[mask][last] + distance_matrix[last][next]);
-            }
+
+    // Return cached value if already computed.
+    if (memo[memoKey] !== undefined) {
+        return memo[memoKey];
+    }
+
+    // Base case: If only two cities remain (pseudocode)
+    if (remainingCities.length === 2) {
+        const nextCity = remainingCities.find(city => city !== currentCity);
+        memo[memoKey] = distance_matrix[currentCity][nextCity];
+        return memo[memoKey];
+    }
+
+    //largest possible value
+    let shortestDistance = Infinity;
+
+    // Iterate over all remaining cities to find the next step. (pseudocode)
+    for (const nextCity of remainingCities) {
+        if (nextCity !== currentCity) {
+            // Compute the remaining cities excluding the current one.
+            const reducedCities = remainingCities.filter(city => city !== currentCity);
+            // Calculate the cost of visiting the next city and the rest of the tour.
+            const tourCost = HK(distance_matrix, nextCity, reducedCities, memo)
+                              + distance_matrix[currentCity][nextCity];
+
+            // Update the shortest distance if a better route is found.
+            shortestDistance = Math.min(shortestDistance, tourCost);
         }
     }
 
-    // Find the minimum distance to visit all cities
-    let minTourDistance = Infinity;
-    for (let i = 0; i < distance_matrix.length; i++) {
-        minTourDistance = Math.min(minTourDistance, dp[(1 << distance_matrix.length) - 1][i]);
-    }
-    return minTourDistance;
+    // Cache the result before returning it.
+    memo[memoKey] = shortestDistance;
+    return shortestDistance;
 }
